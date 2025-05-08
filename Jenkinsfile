@@ -32,10 +32,10 @@ pipeline {
 //                         docker push %IMAGE_NAME%
 //                     """
                         bat """
-                             echo DEBUG: Attempting Docker login with user %USERNAME%
-                             echo %PASSWORD% | docker login -u %USERNAME% --password-stdin
+                             echo DEBUG:--> Attempting Docker login with user %USERNAME% and %PASSWORD%
+                             docker login -u %USERNAME% -p %PASSWORD%
 
-                             echo DEBUG: Image to be pushed: ${IMAGE_NAME}
+                             echo DEBUG:--> Image to be pushed: ${IMAGE_NAME}
                              docker push ${IMAGE_NAME}
                         """
                 }
