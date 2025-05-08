@@ -18,7 +18,7 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                bat 'mvn clean package -DskipTests'
             }
         }
 
@@ -33,7 +33,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'cf74c998-3c04-4261-9e7a-bb2afae0be97', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh """
+                    bat """
                         echo $PASSWORD | docker login -u $USERNAME --password-stdin
                         docker push ${IMAGE_NAME}
                     """
@@ -43,7 +43,7 @@ pipeline {
 
         stage('Deploy to Minikube') {
             steps {
-                sh """
+                bat """
                     kubectl delete deployment devops-deployment || true
                     kubectl delete service devops-service || true
                     kubectl apply -f k8s/manifests/deployment.yaml
