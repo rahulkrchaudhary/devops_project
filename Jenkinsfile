@@ -42,15 +42,34 @@ pipeline {
             }
         }
 
-        stage('Deploy to Minikube') {
-            steps {
-                bat """
-                    kubectl delete deployment devops-deployment --ignore-not-found=true
-                    kubectl delete service devops-service --ignore-not-found=true
-                    kubectl apply -f k8s/manifests/deployment.yaml
-                    kubectl apply -f k8s/manifests/service.yaml
-                """
+//         stage('Deploy to Minikube') {
+//             steps {
+//                 bat """
+//                     kubectl delete deployment devops-deployment --ignore-not-found=true
+//                     kubectl delete service devops-service --ignore-not-found=true
+//                     kubectl apply -f k8s/manifests/deployment.yaml
+//                     kubectl apply -f k8s/manifests/service.yaml
+//                 """
+//             }
+//         }
+            stage('Deploy to Minikube') {
+                steps {
+                    withEnv(["KUBECONFIG=C:\\Users\\rahul\\.kube\\config"]) {
+                        bat """
+                            echo DEBUG: Using kubectl context:
+                            kubectl config current-context
+
+                            echo DEBUG: Deleting previous deployment and service...
+                            kubectl delete deployment devops-deployment --ignore-not-found=true
+                            kubectl delete service devops-service --ignore-not-found=true
+
+                            echo DEBUG: Applying Kubernetes manifests...
+                            kubectl apply -f k8s/manifests/deployment.yaml
+                            kubectl apply -f k8s/manifests/service.yaml
+                        """
+                    }
+                }
             }
-        }
+
     }
 }
