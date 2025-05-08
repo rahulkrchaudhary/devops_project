@@ -33,22 +33,27 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    bat """
-                        echo $PASSWORD | docker login -u $USERNAME --password-stdin
+                    bat '''
+                        echo %PASSWORD% | docker login -u %USERNAME% --password-stdin
                         docker push ${IMAGE_NAME}
-                    """
+                    '''
+
+//                     bat """
+//                         echo $PASSWORD | docker login -u $USERNAME --password-stdin
+//                         docker push ${IMAGE_NAME}
+//                     """
                 }
             }
         }
 
         stage('Deploy to Minikube') {
             steps {
-                bat """
+                bat '''
                     kubectl delete deployment devops-deployment || true
                     kubectl delete service devops-service || true
                     kubectl apply -f k8s/manifests/deployment.yaml
                     kubectl apply -f k8s/manifests/service.yaml
-                """
+                '''
             }
         }
     }
