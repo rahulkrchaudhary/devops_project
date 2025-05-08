@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>DevOps Project</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+        <h1>Welcome to DevOps WebApp</h1>
+        <h2 id="response"></h2>
+        <button onclick="callApi()">Click Me</button>
+        <script>
+            function callApi() {
+              fetch('/api/message')
+                .then(res => res.text())
+                .then(data => {
+                  document.getElementById('response').innerText = data;
+                });
+            }
+        </script>
+    </body>
+</html>
