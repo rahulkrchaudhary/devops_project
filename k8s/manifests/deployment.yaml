@@ -16,4 +16,4 @@ spec:
         - name: devops-container
           image: rahulkrchaudhary12/devops_project
           ports:
-            - containerPort: 8080
+            - containerPort: 9090
