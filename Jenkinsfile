@@ -5,9 +5,9 @@ pipeline {
         IMAGE_NAME = 'rahulkrchaudhary12/devops_project'
     }
 
-    tools {
-        maven 'Maven 3' // Use the name you configured in Jenkins under Global Tools
-    }
+//     tools {
+//         maven 'Maven 3' // Use the name you configured in Jenkins under Global Tools
+//     }
 
     stages {
         stage('Clone Repository') {
@@ -46,8 +46,8 @@ pipeline {
                 sh """
                     kubectl delete deployment devops-deployment || true
                     kubectl delete service devops-service || true
-                    kubectl apply -f deployment.yaml
-                    kubectl apply -f service.yaml
+                    kubectl apply -f k8s/manifests/deployment.yaml
+                    kubectl apply -f k8s/manifests/service.yaml
                 """
             }
         }
