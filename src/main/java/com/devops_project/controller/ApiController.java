@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiController {
     @GetMapping("/api/message")
     public String getMessage(){
-        return "Welcome to Devops Project---->";
+        return "Welcome to Devops Project";
     }
 }
