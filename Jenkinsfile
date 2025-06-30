@@ -42,16 +42,6 @@ pipeline {
             }
         }
 
-//         stage('Deploy to Minikube') {
-//             steps {
-//                 bat """
-//                     kubectl delete deployment devops-deployment --ignore-not-found=true
-//                     kubectl delete service devops-service --ignore-not-found=true
-//                     kubectl apply -f k8s/manifests/deployment.yaml
-//                     kubectl apply -f k8s/manifests/service.yaml
-//                 """
-//             }
-//         }
             stage('Deploy to Minikube') {
                 steps {
                     withEnv(["KUBECONFIG=C:\\Users\\rahul\\.kube\\config"]) {
